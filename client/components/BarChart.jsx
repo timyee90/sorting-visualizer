@@ -4,7 +4,6 @@ import Chart from 'chart.js';
 class BarChart extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.data);
   }
 
   createChart() {
@@ -49,6 +48,7 @@ class BarChart extends Component {
   componentDidMount() {
     this.createChart();
   }
+
   componentDidUpdate() {
     this.createChart();
   }
