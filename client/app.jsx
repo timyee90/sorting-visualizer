@@ -12,6 +12,7 @@ class App extends Component {
       isSorted: false,
       currentIndex: 0,
       noChange: 0,
+      len: exampleData.length - 1,
     };
     this.handleSortClick = this.handleSortClick.bind(this);
     this.handleShuffleClick = this.handleShuffleClick.bind(this);
@@ -19,41 +20,51 @@ class App extends Component {
 
   sort() {
     // bubblesort
-    if (!this.state.isSorted) {
-      let noChangeCount = this.state.noChange;
-      let len = this.state.data.length - 1;
-      let nums = this.state.data.map((item) => {
-        return item.num;
-      });
-      let data = this.state.data;
-      let currentIndex = this.state.currentIndex;
+    let len = this.state.len;
 
-      if (currentIndex < len && nums[currentIndex] > nums[currentIndex + 1]) {
-        let temp = data[currentIndex];
-        data[currentIndex] = data[currentIndex + 1];
-        data[currentIndex + 1] = temp;
-      } else {
-        noChangeCount++;
-      }
-      currentIndex++;
+    const run = () => {
+      console.log('hit');
+      if (!this.state.isSorted) {
+        let noChangeCount = this.state.noChange;
+        let nums = this.state.data.map((item) => {
+          return item.num;
+        });
+        let data = this.state.data;
+        let currentIndex = this.state.currentIndex;
 
-      if (noChangeCount >= len) {
+        if (
+          len &&
+          currentIndex < len &&
+          nums[currentIndex] > nums[currentIndex + 1]
+        ) {
+          let temp = data[currentIndex];
+          data[currentIndex] = data[currentIndex + 1];
+          data[currentIndex + 1] = temp;
+        } else {
+          noChangeCount++;
+        }
+        currentIndex++;
+
+        if (noChangeCount >= len || len === 1) {
+          this.setState({
+            isSorted: true,
+          });
+        }
+
+        if (currentIndex >= len) {
+          currentIndex = 0;
+          noChangeCount = 0;
+          if (len > 0) len--;
+        }
+
         this.setState({
-          isSorted: true,
+          noChange: noChangeCount,
+          currentIndex: currentIndex,
+          data: data,
         });
       }
-
-      if (currentIndex >= len) {
-        currentIndex = 0;
-        noChangeCount = 0;
-      }
-
-      this.setState({
-        noChange: noChangeCount,
-        currentIndex: currentIndex,
-        data: data,
-      });
-    }
+    };
+    this.auto = setInterval(run, 500);
   }
 
   shuffle() {
@@ -72,12 +83,18 @@ class App extends Component {
     this.shuffle();
   }
 
+  componentDidUpdate() {
+    if (this.state.isSorted) {
+      clearInterval(this.auto);
+    }
+  }
+
   render() {
     return (
       <div>
-        <h1 className="title">Sorting Visualizer</h1>
+        <h1 className='title'>Sorting Visualizer</h1>
         <BarChart data={this.state.data} />
-        <div>
+        <div className='buttonContainer'>
           <button onClick={this.handleSortClick}>Sort</button>
           <button onClick={this.handleShuffleClick}>Shuffle</button>
         </div>

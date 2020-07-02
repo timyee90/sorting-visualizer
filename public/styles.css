@@ -6,3 +6,8 @@ h1 {
 button {
   font-size: 16px;
 }
+
+.buttonContainer {
+  margin: auto;
+  text-align: center;
+}
