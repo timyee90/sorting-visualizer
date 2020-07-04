@@ -1,4 +1,4 @@
-const randomize = (data) => {
+module.exports.randomize = (data) => {
   // swap two random elements
   for (let i = 0; i < data.length; i++) {
     let randIndexOne = Math.floor(Math.random() * data.length);
@@ -9,5 +9,3 @@ const randomize = (data) => {
   }
   return data;
 };
-
-module.exports = randomize;
