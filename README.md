@@ -9,8 +9,8 @@ React and chartjs application to visualize sorting algorithms
 
 ### Sorting in Action
 
-1. Bubble Sort
+1. Bubble Sort <br>
    ![alt text](./assets/bubble-sort.gif)
 
-2. Insertion Sort
+2. Insertion Sort <br>
    ![alt text](./assets/insertion-sort.gif)
