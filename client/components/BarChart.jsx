@@ -41,6 +41,9 @@ class BarChart extends Component {
           ],
         },
         events: null,
+        animation: {
+          duration: 0,
+        },
       },
     });
   }
@@ -57,7 +60,7 @@ class BarChart extends Component {
     return (
       <div>
         <div></div>
-        <canvas id="barChart" />
+        <canvas id='barChart' />
       </div>
     );
   }
